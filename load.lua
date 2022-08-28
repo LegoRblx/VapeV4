@@ -8,3 +8,4 @@ local teleportfunc = game:GetService("Players").LocalPlayer.OnTeleport:Connect(f
         queueteleport(teleportstr)
     end
 end)
+ 
