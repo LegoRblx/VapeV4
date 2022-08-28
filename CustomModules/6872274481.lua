@@ -1,6 +1,6 @@
 --[[ 
 	VAPE PRIVATE - pls no leakage ty
-  Updated by me ofc
+
 	Credits
 	Infinite Yield - Blink
 	DevForum - lots of rotation math because I hate it
@@ -1113,13 +1113,6 @@ local function findItemInTable(tab, item)
 	end
 	return nil
 end
-local queueteleport = syn and syn.queue_on_teleport or queue_on_teleport or fluxus and fluxus.queue_on_teleport or function() end
-local teleportfunc = game:GetService("Players").LocalPlayer.OnTeleport:Connect(function(State)
-    if State == Enum.TeleportState.Started  then
-        local teleportstr = 'pcall(function() loadstring(game:HttpGet("https://raw.githubusercontent.com/LegoRblx/VapeV4/main/CustomModules/"..game.PlaceId..".lua"))() end)'
-        queueteleport(teleportstr)
-    end
-end)
 runcode(function()
 	local Disabler = {["Enabled"] = false}
 	Disabler = GuiLibrary["ObjectsThatCanBeSaved"]["UtilityWindow"]["Api"].CreateOptionsButton({
@@ -1189,7 +1182,8 @@ Anticheat_Test_2 = GuiLibrary["ObjectsThatCanBeSaved"]["UtilityWindow"]["Api"].C
 	["Function"] = function(callback)
 		if callback then
 			if Anticheat_Test_2["Enabled"] == true then
-				if entity.character.Humanoid:GetState() == Enum.HumanoidStateType.FallingDown then
+				if entity.character.Humanoid:GetState() == Enum.HumanoidStateType.FallingDown
+				or entity.character.Humanoid:GetState() == Enum.HumanoidStateType.Jumping then
 					entity.character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Running, true)
 					entity.character.Humanoid:ChangeState(Enum.HumanoidStateType.Running)	
 				end
@@ -1197,18 +1191,18 @@ Anticheat_Test_2 = GuiLibrary["ObjectsThatCanBeSaved"]["UtilityWindow"]["Api"].C
 					createwarning("AnticheatDisabler", "Disabled Anticheat!", 10)
 				end)
 				repeat wait()
-					if entity.character.Humanoid:GetState() == Enum.HumanoidStateType.FallingDown then
-						entity.character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Running, true)
-						entity.character.Humanoid:ChangeState(Enum.HumanoidStateType.Running)	
-					end
-				until not Anticheat_Test_2["Enabled"] 
+					if entity.character.Humanoid:GetState() == Enum.HumanoidStateType.FallingDown
+				or entity.character.Humanoid:GetState() == Enum.HumanoidStateType.Jumping then
+					entity.character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Running, true)
+					entity.character.Humanoid:ChangeState(Enum.HumanoidStateType.Running)	
+				end
+				until not Anticheat_Test_2["Enabled"]
 			end
 		else
 			task.spawn(function()
 				createwarning("AnticheatDisabler", "Undisabled Anticheat!", 10)
 			end)	
-		end
-		print(Anticheat_Test_2["Enabled"])
+		end	
 	end
 })
 end)
