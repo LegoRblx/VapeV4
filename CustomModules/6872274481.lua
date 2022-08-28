@@ -1184,31 +1184,31 @@ runcode(function()
 		end
 	})
 	local Anticheat_Test_2 = {["Enabled"] = false}
-	Anticheat_Test_2 = GuiLibrary["ObjectsThatCanBeSaved"]["UtilityWindow"]["Api"].CreateOptionsButton({
-		["Name"] = "Anticheat_Test_2",
-		["Function"] = function(callback)
-			if callback then
-				if Anticheat_Test_2["Enabled"] == false then
+Anticheat_Test_2 = GuiLibrary["ObjectsThatCanBeSaved"]["UtilityWindow"]["Api"].CreateOptionsButton({
+	["Name"] = "Anticheat_Test_2",
+	["Function"] = function(callback)
+		if callback then
+			if Anticheat_Test_2["Enabled"] == true then
+				if entity.character.Humanoid:GetState() == Enum.HumanoidStateType.FallingDown then
+					entity.character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Running, true)
+					entity.character.Humanoid:ChangeState(Enum.HumanoidStateType.Running)	
+				end
+				task.spawn(function()
+					createwarning("AnticheatDisabler", "Disabled Anticheat!", 10)
+				end)
+				repeat wait()
 					if entity.character.Humanoid:GetState() == Enum.HumanoidStateType.FallingDown then
 						entity.character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Running, true)
-					        entity.character.Humanoid:ChangeState(Enum.HumanoidStateType.Running)	
-								end
-					task.spawn(function()
-					createwarning("AnticheatDisabler", "Disabled Anticheat!", 10)
-					end)
-							repeat wait()
-									if entity.character.Humanoid:GetState() == Enum.HumanoidStateType.FallingDown then
-						entity.character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Running, true)
-					        entity.character.Humanoid:ChangeState(Enum.HumanoidStateType.Running)	
-								end
-									until not Anticheat_Test_2["Enabled"] 
+						entity.character.Humanoid:ChangeState(Enum.HumanoidStateType.Running)	
 					end
-				else
-					task.spawn(function()
-					createwarning("AnticheatDisabler", "Undisabled Anticheat!", 10)
-					end)	
-				end
+				until not Anticheat_Test_2["Enabled"] 
 			end
+		else
+			task.spawn(function()
+				createwarning("AnticheatDisabler", "Undisabled Anticheat!", 10)
+			end)	
 		end
-	})
+		print(Anticheat_Test_2["Enabled"])
+	end
+})
 end)
